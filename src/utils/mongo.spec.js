@@ -9,20 +9,20 @@ const db = {
     callback();
     return db;
   },
-  collection: (collectionName) => { return `right ${collectionName}`; }
-}
+  collection: collectionName => `right ${collectionName}`,
+};
 
 const { mongoConnect, mongoCollection } = proxyquire('./mongo', {
-  'mongodb': {
+  mongodb: {
     MongoClient: {
       connect: () => {
         mongoClient();
         return new Promise((resolve) => {
           resolve(db);
         });
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 describe('mongo', () => {
@@ -32,7 +32,7 @@ describe('mongo', () => {
   describe('mongoConnect', () => {
     it('Should start the db', () => {
       mongoConnect(mongoURL);
-      expect(mongoClient).to.have.been.called;
+      expect(mongoClient).to.have.been.called; // eslint-disable-line no-unused-expressions
     });
   });
   describe('mongoCollection', () => {

@@ -2,7 +2,7 @@ import winston from 'winston';
 
 const logLevel = process.env.LOG_LEVEL || 'info';
 
-const logOptions = {
+export const logOptions = {
   colorize: process.env.NODE_ENV !== 'production',
   timestamp: () => new Date().toISOString(),
   level: logLevel,
@@ -15,19 +15,19 @@ const logOptions = {
     const data = {
       level,
       timestamp,
-      ...meta
+      ...meta,
     };
 
     if (message) data.message = message;
 
     return JSON.stringify(data);
-  }
+  },
 };
 
 const winstonTransports = [
-  new winston.transports.Console(logOptions)
+  new winston.transports.Console(logOptions),
 ];
 
 export const logger = winston.createLogger({
-  transports: winstonTransports
+  transports: winstonTransports,
 });

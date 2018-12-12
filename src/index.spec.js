@@ -31,7 +31,7 @@ describe('server', () => {
     server = new Server({
       port: 2222,
       name: 'test',
-      routes: router
+      routes: router,
     });
   });
 
@@ -41,25 +41,19 @@ describe('server', () => {
   it('Should throw when no port provided', () => {
     expect(() => new Server({ name: 'test' })).to.throw('port');
   });
-  it('Should throw when error route called', () => {
-    return request(server.getServer())
-      .get('/error')
-      .expect(503, {});
-  });
+  it('Should throw when error route called', () => request(server.getServer())
+    .get('/error')
+    .expect(503, {}));
   it('Should throw 500 when error route called without status', () => {
     status = undefined;
     return request(server.getServer())
       .get('/error')
       .expect(500, {});
   });
-  it('Should throw a 404', () => {
-    return request(server.getServer())
-      .get('/unknown-route')
-      .expect(404, { code: 'test.not.found', message: 'GET /unknown-route does not exist' });
-  });
-  it('Should return test', () => {
-    return request(server.getServer())
-      .get('/test')
-      .expect(200, 'test');
-  });
+  it('Should throw a 404', () => request(server.getServer())
+    .get('/unknown-route')
+    .expect(404, { code: 'test.not.found', message: 'GET /unknown-route does not exist' }));
+  it('Should return test', () => request(server.getServer())
+    .get('/test')
+    .expect(200, 'test'));
 });

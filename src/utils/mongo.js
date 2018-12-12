@@ -1,12 +1,12 @@
 import { MongoClient } from 'mongodb';
-import { mustProvide } from './error';
+import mustProvide from './error';
 import { logger } from './logger';
 
 let database;
 
-export async function mongoConnect(url) {
+export function mongoConnect(url, options) {
   return MongoClient
-    .connect(url)
+    .connect(url, options)
     .then((db) => {
       db
         .on('reconnect', () => logger.info('database reconnected'))

@@ -1,4 +1,4 @@
-import { mustProvide } from './error';
+import mustProvide from './error';
 
 describe('error', () => {
   describe('mustProvide', () => {

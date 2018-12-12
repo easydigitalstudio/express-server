@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { mustProvide } from './utils/error';
+import mustProvide from './utils/error';
 import { mongoConnect } from './utils/mongo';
 import { notFound, expressError } from './routes/errorHandlers';
 import { logger } from './utils/logger';
@@ -8,9 +8,9 @@ import config from './config/config';
 import explorerRoutes from './routes/explorer';
 import './tests/globals';
 
-export { getConfig } from './utils/config';
-export { mustProvide } from './utils/error';
-export { mustBeType } from './utils/validation';
+export getConfig from './utils/config';
+export mustProvide from './utils/error';
+export mustBeType from './utils/validation';
 export { logger } from './utils/logger';
 export { mongoCollection } from './utils/mongo';
 
@@ -19,7 +19,7 @@ export default class Server {
     routes,
     port = mustProvide('port'),
     name = mustProvide('name'),
-    mongo = null
+    mongo = null,
   }) {
     this.port = port;
     this.mongo = mongo;
@@ -42,7 +42,7 @@ export default class Server {
   start() {
     return new Promise(async (resolve) => {
       try {
-        if (this.mongo) await mongoConnect(this.mongo.url);
+        if (this.mongo) await mongoConnect(this.mongo.url, { useNewUrlParser: true });
 
         this.app = this.expressServer.listen(this.port, () => {
           logger.info(`Server started on ${this.port}`);

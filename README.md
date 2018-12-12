@@ -1,7 +1,7 @@
-# Express Server
+# Easy Digital Studio - Express Server
 ## install
 ```
-yarn add @easydigitalstudio/express-server
+npm i @easydigitalstudio/express-server
 ```
 ## Server
 ### getConfig

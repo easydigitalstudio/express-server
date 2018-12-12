@@ -20,7 +20,7 @@ router.get('/explorer/api', (req, res) => {
     const yaml = result.toString();
     const json = yamljs.parse(yaml);
     return res.json(json);
-  })
+  });
 });
 
 export default router;

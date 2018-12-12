@@ -1,4 +1,4 @@
-import { mustBeType } from './validation';
+import mustBeType from './validation';
 
 describe('error', () => {
   let stringType;

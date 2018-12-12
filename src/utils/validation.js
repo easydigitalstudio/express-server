@@ -1,8 +1,8 @@
-import { mustProvide } from './error';
+import mustProvide from './error';
 
 const types = ['string', 'number', 'float', 'object', 'array'];
 
-export function mustBeType(type = mustProvide('type'), value = mustProvide('value')) {
+export default function mustBeType(type = mustProvide('type'), value = mustProvide('value')) {
   if (types.indexOf(type) === -1) throw new Error(`type ${type} not supported`);
   if (type === 'float' && typeof value === 'number') return true;
   if (type === 'array' && typeof value === 'object' && value instanceof Array) return true;
