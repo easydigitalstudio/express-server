@@ -4,6 +4,19 @@ const proxyquire = noCallThru();
 const updateSpy = sinon.spy();
 const dynamoSpy = sinon.spy();
 let data;
+const functions = [
+  'batchGetItem',
+  'batchWriteItem',
+  'createTable',
+  'deleteItem',
+  'deleteTable',
+  'describeTable',
+  'getItem',
+  'listTables',
+  'putItem',
+  'query',
+  'scan',
+];
 
 const { dynamoConnect, dynamoDB } = proxyquire('./dynamo', {
   'aws-sdk': {
@@ -34,11 +47,16 @@ describe('dynamo', () => {
       dynamoConnect(data);
       expect(updateSpy).to.have.been.called; // eslint-disable-line no-unused-expressions
     });
+    it('Should return the database', () => {
+      expect(dynamoConnect(data)).to.deep.equal({});
+    });
   });
   describe('dynamoDB', () => {
-    it('Should return the database', () => {
-      dynamoConnect(data);
-      expect(typeof dynamoDB()).to.equal('object');
+    functions.forEach((fct) => {
+      it(`Should test the function ${fct}`, () => {
+        const res = dynamoDB()[fct];
+        expect(typeof res).to.equal('function');
+      });
     });
   });
 });
