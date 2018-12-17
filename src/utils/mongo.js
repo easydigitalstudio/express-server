@@ -9,7 +9,7 @@ export function mongoConnect(url, options) {
     .connect(url, options)
     .then((db) => {
       db
-        .on('reconnect', () => logger.info('database reconnected'))
+        .on('reconnect', () => logger.info('mongo reconnected'))
         .on('close', e => logger.error(e));
 
       database = db;
