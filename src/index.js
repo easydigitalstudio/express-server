@@ -7,6 +7,7 @@ import { notFound, expressError } from './routes/errorHandlers';
 import { logger } from './utils/logger';
 import config from './config/config';
 import explorerRoutes from './routes/explorer';
+import track from './routes/track';
 import './tests/globals';
 
 export getConfig from './utils/config';
@@ -32,6 +33,7 @@ export default class Server {
     if (config.allowExplorer) server.use(explorerRoutes);
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
+    server.use(track);
     server.use(routes);
     server.use(expressError());
     server.use(notFound(name));
