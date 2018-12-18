@@ -54,7 +54,7 @@ describe('dynamo', () => {
   describe('dynamoDB', () => {
     functions.forEach((fct) => {
       it(`Should test the function ${fct}`, () => {
-        const res = dynamoDB()[fct];
+        const res = dynamoDB[fct];
         expect(typeof res).to.equal('function');
       });
     });

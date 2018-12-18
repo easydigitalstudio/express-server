@@ -9,7 +9,8 @@ export function dynamoConnect({ region, apiVersion, auth }) {
     accessKeyId: auth.accessKeyId,
     secretAccessKey: auth.secretAccessKey,
   });
-  return new AWS.DynamoDB({ apiVersion });
+  database = new AWS.DynamoDB({ apiVersion });
+  return database;
 }
 
 const promisify = (params, fct) => new Promise((resolve, reject) => {
@@ -27,18 +28,16 @@ const promisify = (params, fct) => new Promise((resolve, reject) => {
   }
 });
 
-export function dynamoDB() {
-  return {
-    batchGetItem: params => promisify(params, 'batchGetItem'),
-    batchWriteItem: params => promisify(params, 'batchWriteItem'),
-    createTable: params => promisify(params, 'createTable'),
-    deleteItem: params => promisify(params, 'deleteItem'),
-    deleteTable: params => promisify(params, 'deleteTable'),
-    describeTable: params => promisify(params, 'describeTable'),
-    getItem: params => promisify(params, 'getItem'),
-    listTables: params => promisify(params, 'listTables'),
-    putItem: params => promisify(params, 'putItem'),
-    query: params => promisify(params, 'query'),
-    scan: params => promisify(params, 'scan'),
-  };
-}
+export const dynamoDB = {
+  batchGetItem: params => promisify(params, 'batchGetItem'),
+  batchWriteItem: params => promisify(params, 'batchWriteItem'),
+  createTable: params => promisify(params, 'createTable'),
+  deleteItem: params => promisify(params, 'deleteItem'),
+  deleteTable: params => promisify(params, 'deleteTable'),
+  describeTable: params => promisify(params, 'describeTable'),
+  getItem: params => promisify(params, 'getItem'),
+  listTables: params => promisify(params, 'listTables'),
+  putItem: params => promisify(params, 'putItem'),
+  query: params => promisify(params, 'query'),
+  scan: params => promisify(params, 'scan'),
+};
