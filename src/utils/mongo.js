@@ -4,10 +4,11 @@ import { logger } from './logger';
 
 let database;
 
-export function mongoConnect(url, options) {
+export function mongoConnect(mongo, options) {
   return MongoClient
-    .connect(url, options)
-    .then((db) => {
+    .connect(mongo.url, options)
+    .then((client) => {
+      const db = client.db(mongo.name);
       db
         .on('reconnect', () => logger.info('mongo reconnected'))
         .on('close', e => logger.error(e));

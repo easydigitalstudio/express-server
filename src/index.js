@@ -48,7 +48,7 @@ export default class Server {
   start() {
     return new Promise(async (resolve) => {
       try {
-        if (this.mongo) await mongoConnect(this.mongo.url, { useNewUrlParser: true });
+        if (this.mongo) await mongoConnect(this.mongo, { useNewUrlParser: true });
         if (this.dynamo) await dynamoConnect(this.dynamo);
 
         this.app = this.expressServer.listen(this.port, () => {

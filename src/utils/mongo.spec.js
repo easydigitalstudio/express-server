@@ -2,7 +2,9 @@ import { noCallThru } from 'proxyquire';
 
 const proxyquire = noCallThru();
 const mongoClient = sinon.spy();
-const mongoURL = 'mongoURL';
+const mongo = {
+  url: 'mongoURL',
+};
 
 const db = {
   on: (action, callback) => {
@@ -12,13 +14,17 @@ const db = {
   collection: collectionName => `right ${collectionName}`,
 };
 
+const client = {
+  db: () => db,
+};
+
 const { mongoConnect, mongoCollection } = proxyquire('./mongo', {
   mongodb: {
     MongoClient: {
       connect: () => {
         mongoClient();
         return new Promise((resolve) => {
-          resolve(db);
+          resolve(client);
         });
       },
     },
@@ -31,7 +37,7 @@ describe('mongo', () => {
   });
   describe('mongoConnect', () => {
     it('Should start the db', () => {
-      mongoConnect(mongoURL);
+      mongoConnect(mongo);
       expect(mongoClient).to.have.been.called; // eslint-disable-line no-unused-expressions
     });
   });
@@ -40,7 +46,7 @@ describe('mongo', () => {
       expect(() => mongoCollection()).to.throw('collectionName');
     });
     it('Should return the db', () => {
-      mongoConnect();
+      mongoConnect({});
       expect(mongoCollection('test')).to.equal('right test');
     });
   });
