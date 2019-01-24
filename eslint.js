@@ -18,5 +18,7 @@ module.exports = {
   },
   parser: 'babel-eslint',
   plugins: ['react'],
-  rules: {},
+  rules: {
+    'import/prefer-default-export': 0,
+  },
 };
