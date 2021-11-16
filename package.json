@@ -17,7 +17,7 @@
   "author": "Easy Digital Studio",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.376.0",
+    "aws-sdk": "^2.814.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
